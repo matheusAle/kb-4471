@@ -8,6 +8,6 @@ The ticket merged 412 reports into one. They hold three problems, each with its 
 2. Booking form v3 tells day-first customers to type the month first: 33 reports (issue 2)
 3. Bookings land exactly one day off: 5 reports (issue 3)
 
-The kb page about them is `src/routes/kb/incidents/4471-split/+page.svx`. The page as the desk sees it is `rendered/4471-split.html`. The page is signed, and its desk ref is `DR-G41Q-HJGE`.
+The kb page about them is `src/routes/kb/incidents/4471-split/+page.svx`. The page as the desk sees it is `rendered/4471-split.html`. The page is signed, and its desk ref is `DR-A9VA-0M5C`.
 
 No customer reports or customer names are in this repo.
