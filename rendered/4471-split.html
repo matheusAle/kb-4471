@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#4471 · two problems under one ticket · support kb</title>
+<title>#4471 · three problems under one ticket · support kb</title>
 <style>
 :root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#6b6a66;--line:#e3e0d8;--accent:#2f6f5e;--warn:#b4501f;--warn-bg:#fbeee6;--note-bg:#eef5f2;--mono:ui-monospace,'Cascadia Code',Menlo,monospace}
 @media (prefers-color-scheme:dark){:root{--bg:#171716;--fg:#ecebe6;--muted:#9c9a93;--line:#34332f;--accent:#6fbfa6;--warn:#f0905d;--warn-bg:#3a2418;--note-bg:#1d2c27}}
@@ -21,27 +21,28 @@ footer{margin-top:3rem;color:var(--muted);font-size:.8rem;border-top:1px solid v
 </style></head><body>
 <div class="kb">
 <header><a class="crumb" href="/kb">support desk · kb</a>
-<h1>#4471 · two problems under one ticket</h1>
+<h1>#4471 · three problems under one ticket</h1>
 <p class="meta"><span>owner <b>support desk</b></span><span class="status proposed">proposed</span><span>reviewed 2026-11-24 · 0 days ago</span></p></header>
 <main>
 <p>Ticket #4471 says one bug: dates parse month first. That is true for most of its reports. It is
-not true for all of them. The 412 reports hold two different problems, and each needs its own
+not true for all of them. The 412 reports hold three different problems, and each needs its own
 fix.</p>
-<p><strong>412</strong> reports merged into #4471 · <strong>2</strong> problems</p>
-<table><thead><tr><th>problem</th><th>reports</th><th>customers</th><th>seen</th><th>intake tagged it right</th></tr></thead>
-<tbody><tr><td><code>parser</code></td><td>379</td><td>11</td><td>2026-04-01 → 2026-10-04</td><td>356 of 379</td></tr><tr><td><code>hint</code></td><td>33</td><td>3</td><td>2026-04-17 → 2026-09-22</td><td>18 of 33</td></tr></tbody></table>
-<p class="note">5 of the 379 <code>parser</code> reports read as a one-day move. They are filed under <code>parser</code> by customer.</p>
-<aside class="warn">The queued fix repairs the first problem only. Closing #4471 when it ships would close the
-second one with no fix.</aside>
-<h2>The two problems</h2>
+<p><strong>412</strong> reports merged into #4471 · <strong>3</strong> problems</p>
+<table><thead><tr><th>problem</th><th>reports</th><th>customers</th><th>seen</th><th>intake tagged it right</th><th>desk</th></tr></thead>
+<tbody><tr><td><code>parser</code></td><td>327</td><td>10</td><td>2026-04-02 → 2026-10-04</td><td>306 of 327</td><td>fixed</td></tr><tr><td><code>parserOutsideEu</code></td><td>52</td><td>1</td><td>2026-04-01 → 2026-10-04</td><td>50 of 52</td><td>open</td></tr><tr><td><code>hint</code></td><td>33</td><td>3</td><td>2026-04-17 → 2026-09-22</td><td>18 of 33</td><td>won't fix</td></tr></tbody></table>
+<p class="note">5 of the 327 <code>parser</code> reports read as a one-day move. They are filed under <code>parser</code> by customer.</p>
+<aside class="warn">The fix that shipped on 5 October covers the European customers only. The UK customers still
+see the problem, and the form problem will not be fixed.</aside>
+<h2>The three problems</h2>
 <ol>
-<li><strong><code>parser</code>.</strong> The shared date reader reads every date month first. Customers who write the day first see day and month flipped. This is the queued fix. <a href="https://github.com/matheusAle/kb-4471/issues/1">Issue 1</a>.</li>
-<li><strong><code>hint</code>.</strong> Booking form v3 prints <code>MM/DD/YYYY</code> under the date field. Day-first customers type what it says, and the form reads it their way. The date reader is not involved. <a href="https://github.com/matheusAle/kb-4471/issues/2">Issue 2</a>.</li>
+<li><strong><code>parser</code>.</strong> The shared date reader read every date month first. Customers in Europe who write the day first saw day and month flipped. Fixed on 5 October. <a href="https://github.com/matheusAle/kb-4471/issues/1">Issue 1</a>.</li>
+<li><strong><code>parserOutsideEu</code>.</strong> The same bug for UK customers. The fix reads dates day first for European locales, and the UK is not one of them, so these are still open. <a href="https://github.com/matheusAle/kb-4471/issues/4">Issue 4</a>.</li>
+<li><strong><code>hint</code>.</strong> Booking form v3 prints <code>MM/DD/YYYY</code> under the date field. Day-first customers type what it says, and the form reads it their way. The date reader is not involved. Won't fix: engineering retired that form. <a href="https://github.com/matheusAle/kb-4471/issues/2">Issue 2</a>.</li>
 </ol>
 <h2>Why they were merged</h2>
 <p>Intake tags a report from the reporter's browser, and the desk merges on the subject line
 (<a href="/kb/decisions/0001-dedupe-by-subject">decision 0001</a>). Both are guesses. The same few subject
-lines appear in both problems, and the last column of the table shows how often the tag was
+lines appear in all three problems, and the last column of the table shows how often the tag was
 wrong.</p>
 <h2>Lessons</h2>
 <ul><li>A big ticket is not always one bug. Count the causes before you merge, not after.</li>
