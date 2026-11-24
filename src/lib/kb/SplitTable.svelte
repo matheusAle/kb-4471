@@ -6,11 +6,12 @@
 
   let { ticket }: { ticket: number } = $props();
 
-  // Three problems: the desk's own cause rule, with the one-day moves taken out of `parser`.
+  // Two problems: the desk's own cause rule. The desk reads some reports as a one-day move (desk-notes),
+  // but they are filed under the cause their customer has, so they are footnoted, not split out.
   const merged = $derived(uniqueById(reports as Report[]).filter((r) => r.mergedInto === ticket));
-  const problemOf = (r: Report) => (notes.oneDayMove.includes(r.id) ? 'oneDay' : (causeOf(r, tenantOf(r)) ?? 'unplaced'));
+  const problemOf = (r: Report) => causeOf(r, tenantOf(r)) ?? 'unplaced';
   const rows = $derived(
-    ['parser', 'hint', 'oneDay', 'unplaced']
+    ['parser', 'hint', 'unplaced']
       .map((p) => {
         const rs = merged.filter((r) => problemOf(r) === p);
         const days = rs.map((r) => r.receivedAt.slice(0, 10)).sort();
@@ -20,8 +21,8 @@
           tenants: new Set(rs.map((r) => r.tenant)).size,
           first: days[0],
           last: days[days.length - 1],
-          // Intake has no tag for a one-day move, so none of those can be tagged right.
-          taggedRight: p === 'oneDay' ? 0 : rs.filter((r) => r.meta.intakeTag === p).length,
+          taggedRight: rs.filter((r) => r.meta.intakeTag === p).length,
+          oneDay: rs.filter((r) => notes.oneDayMove.includes(r.id)).length,
         };
       })
       .filter((x) => x.n > 0),
@@ -38,3 +39,9 @@
     {/each}
   </tbody>
 </table>
+
+{#each rows as x (x.problem)}
+  {#if x.oneDay}
+    <p class="note">{x.oneDay} of the {x.n} <code>{x.problem}</code> reports read as a one-day move. They are filed under <code>{x.problem}</code> by customer.</p>
+  {/if}
+{/each}

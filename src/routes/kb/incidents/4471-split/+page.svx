@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · three problems under one ticket'
+title: '#4471 · two problems under one ticket'
 owner: support desk
 status: proposed
 reviewed: 2026-11-24
@@ -15,27 +15,26 @@ signature: v1.eyJzdWIiOiI2NDQyIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYX
 </script>
 
 Ticket #4471 says one bug: dates parse month first. That is true for most of its reports. It is
-not true for all of them. The 412 reports hold three different problems, and each needs its own
+not true for all of them. The 412 reports hold two different problems, and each needs its own
 fix.
 
 <SplitTable ticket={4471} />
 
 <Callout kind="warn">
 The queued fix repairs the first problem only. Closing #4471 when it ships would close the
-other two with no fix.
+second one with no fix.
 </Callout>
 
-## The three problems
+## The two problems
 
 1. **`parser`.** The shared date reader reads every date month first. Customers who write the day first see day and month flipped. This is the queued fix. [Issue 1](https://github.com/matheusAle/kb-4471/issues/1).
 2. **`hint`.** Booking form v3 prints `MM/DD/YYYY` under the date field. Day-first customers type what it says, and the form reads it their way. The date reader is not involved. [Issue 2](https://github.com/matheusAle/kb-4471/issues/2).
-3. **`oneDay`.** Bookings land exactly one day off, with no swap. Cause not known yet. [Issue 3](https://github.com/matheusAle/kb-4471/issues/3).
 
 ## Why they were merged
 
 Intake tags a report from the reporter's browser, and the desk merges on the subject line
 ([decision 0001](/kb/decisions/0001-dedupe-by-subject)). Both are guesses. The same few subject
-lines appear in all three problems, and the last column of the table shows how often the tag was
+lines appear in both problems, and the last column of the table shows how often the tag was
 wrong.
 
 ## Lessons
